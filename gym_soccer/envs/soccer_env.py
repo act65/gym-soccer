@@ -62,7 +62,7 @@ class SoccerEnv(gym.Env, utils.EzPickle):
                           defense_agents=0,
                           offense_npcs=0,
                           defense_npcs=0,
-                          sync_mode=False,
+                          sync_mode=True,
                           port=6000,
                           offense_on_ball=0,
                           fullstate=True,
@@ -92,7 +92,7 @@ class SoccerEnv(gym.Env, utils.EzPickle):
         """
         self.server_port = port
         cmd = self.hfo_path + \
-              " --frames-per-trial %i --untouched-time %i --offense-agents %i"\
+              "--headless --frames-per-trial %i --untouched-time %i --offense-agents %i"\
               " --defense-agents %i --offense-npcs %i --defense-npcs %i"\
               " --port %i --offense-on-ball %i --seed %i --ball-x-min %f"\
               " --ball-x-max %f --log-dir %s"\
