@@ -5,6 +5,7 @@ import subprocess
 import time
 
 import gym
+import numpy as np
 from gym import error, spaces, utils
 from gym.utils import seeding
 
@@ -34,10 +35,10 @@ class SoccerEnv(gym.Env, utils.EzPickle):
         # Action space omits the Tackle/Catch actions, which are useful on defense
         self.action_space = spaces.Tuple(
             (spaces.Discrete(3), spaces.Box(low=0, high=100, shape=(1, )),
-             spaces.Box(low=-180, high=180, shape=(1, )),
-             spaces.Box(low=-180, high=180, shape=(1, )),
-             spaces.Box(low=0, high=100, shape=(1, )),
-             spaces.Box(low=-180, high=180, shape=(1, ))))
+             spaces.Box(low=-180, high=180, shape=(1, ), dtype=np.float32),
+             spaces.Box(low=-180, high=180, shape=(1, ), dtype=np.float32),
+             spaces.Box(low=0, high=100, shape=(1, ), dtype=np.float32),
+             spaces.Box(low=-180, high=180, shape=(1, ), dtype=np.float32)))
         self.status = hfo_py.IN_GAME
 
     def __del__(self):
@@ -92,7 +93,7 @@ class SoccerEnv(gym.Env, utils.EzPickle):
         """
         self.server_port = port
         cmd = self.hfo_path + \
-              "--headless --frames-per-trial %i --untouched-time %i --offense-agents %i"\
+              " --headless --frames-per-trial %i --untouched-time %i --offense-agents %i"\
               " --defense-agents %i --offense-npcs %i --defense-npcs %i"\
               " --port %i --offense-on-ball %i --seed %i --ball-x-min %f"\
               " --ball-x-max %f --log-dir %s"\
