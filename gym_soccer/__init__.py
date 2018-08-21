@@ -21,7 +21,15 @@ register(
 
 register(
     id='SoccerAgainstKeeper-v0',
-    entry_point='gym.envs:SoccerAgainstKeeperEnv',
+    entry_point='gym_soccer.envs:SoccerAgainstKeeperEnv',
+    timestep_limit=1000,
+    reward_threshold=8.0,
+    nondeterministic = True,
+)
+
+register(
+    id='SoccerMatch-v0',
+    entry_point='gym_soccer.envs:SoccerMatchEnv',
     timestep_limit=1000,
     reward_threshold=8.0,
     nondeterministic = True,
